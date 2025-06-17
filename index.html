@@ -1,327 +1,350 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>gunx</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <title>خدمات تطوير المواقع</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-      background: #f0f2f5;
-      font-family: 'Poppins', sans-serif;
-      color: #222;
-    }
-
     body {
-      line-height: 1.6;
-      min-height: 100vh;
+      margin: 0;
+      font-family: 'Tahoma', sans-serif;
+      background: #f9f9f9;
+      direction: rtl;
+      transition: background 0.3s;
+    }
+    nav {
+      background-color: #2c3e50;
+      color: #fff;
       display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      text-align: center;
-      padding: 120px 20px 80px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      z-index: 10;
       position: relative;
-      overflow: hidden;
     }
-
-    header::before {
-      content: "";
-      position: absolute;
-      width: 200%;
-      height: 300px;
-      background: rgba(255,255,255,0.05);
-      top: 0;
-      left: -50%;
-      transform: rotate(25deg);
-      pointer-events: none;
+    nav .langs span {
+      margin: 0 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
     }
-
-    header h1 {
-      font-weight: 700;
-      font-size: 3rem;
-      margin-bottom: 15px;
-      letter-spacing: 2px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    nav .langs span:hover {
+      transform: scale(1.2);
+      color: #f1c40f;
     }
-
-    header p {
-      font-size: 1.3rem;
-      color: #cfd8dc;
-      max-width: 600px;
-      margin: 0 auto;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-    }
-
-    header .btn {
-      display: inline-block;
-      margin-top: 30px;
-      background: #ff5722;
-      color: #fff;
-      padding: 14px 36px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      border-radius: 40px;
-      text-decoration: none;
-      box-shadow: 0 5px 15px rgba(255,87,34,0.4);
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    header .btn:hover {
-      background: #e64a19;
-      transform: scale(1.05);
-    }
-
-    section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    section h2 {
-      font-weight: 600;
-      font-size: 2rem;
-      margin-bottom: 25px;
-      color: #0f2027;
+    .section {
+      display: none;
+      padding: 2rem;
       position: relative;
-      display: inline-block;
-      padding-bottom: 10px;
+      z-index: 1;
     }
-
-    section h2::after {
-      content: "";
-      width: 60px;
-      height: 3px;
-      background: #ff5722;
-      position: absolute;
-      bottom: 0;
-      right: 50%;
-      transform: translateX(50%);
-      border-radius: 3px;
+    .section.active {
+      display: block;
+      animation: fadeIn 0.5s;
     }
-
-    section p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.1rem;
-      color: #444;
-      line-height: 1.7;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-
-    #services ul {
-      list-style: none;
-      padding: 0;
-      max-width: 400px;
-      margin: 0 auto;
-      text-align: right;
-    }
-
-    #services li {
-      background: #fff;
-      border-radius: 8px;
-      padding: 15px 20px;
-      margin-bottom: 15px;
-      font-weight: 500;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: box-shadow 0.3s ease;
-      cursor: default;
-    }
-
-    #services li:hover {
-      box-shadow: 0 6px 20px rgba(255,87,34,0.3);
-    }
-
-    .gallery {
+    .menu {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      background: #34495e;
+      z-index: 10;
+      position: relative;
     }
-
-    .gallery img {
-      width: 240px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    .menu div {
+      padding: 1rem 2rem;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: white;
+      transition: background 0.3s, transform 0.3s;
+      user-select: none;
     }
-
-    .gallery img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 10px 30px rgba(255,87,34,0.5);
-    }
-
-    #contact form {
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    input, textarea {
-      padding: 15px 20px;
-      font-size: 1rem;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      transition: border-color 0.3s ease;
-      font-family: 'Poppins', sans-serif;
-      resize: vertical;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #ff5722;
-      outline: none;
-      box-shadow: 0 0 8px #ff5722aa;
-    }
-
-    button {
-      background: #ff5722;
-      color: #fff;
-      border: none;
-      font-size: 1.1rem;
-      padding: 14px 0;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255,87,34,0.5);
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    button:hover {
-      background: #e64a19;
+    .menu div:hover {
+      background: #5d6d7e;
       transform: scale(1.05);
     }
-
-    footer {
-      background: #0f2027;
-      color: #ddd;
-      text-align: center;
-      padding: 25px 20px;
-      font-size: 0.9rem;
-      margin-top: auto;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    .img-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 5;
+    }
+    .img-container img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .img-container img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(241, 196, 15, 0.7);
+    }
+    /* تحسين خاص لأعمالنا */
+    #projects .img-container img {
+      max-width: 250px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    #projects .img-container img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(241, 196, 15, 0.8);
     }
 
-    /* Whatsapp floating button */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      left: 25px;
-      background: #25d366;
+    /* تحديث قسم خدماتنا */
+    #services {
+      background: linear-gradient(135deg, #1abc9c, #16a085);
       color: white;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(22, 160, 133, 0.6);
+      padding: 2rem 2rem 3rem 2rem;
+      transition: box-shadow 0.3s ease;
+    }
+    #services:hover {
+      box-shadow: 0 12px 30px rgba(22, 160, 133, 0.9);
+    }
+    #services h2 {
       text-align: center;
-      font-size: 32px;
-      line-height: 60px;
-      z-index: 1000;
-      text-decoration: none;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-      transition: background 0.3s ease;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    }
+    #services p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    #services .img-container {
+      justify-content: center;
+    }
+    #services .img-container img {
+      max-width: 280px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    #services .img-container img:hover {
+      transform: scale(1.1) rotate(1deg);
+      box-shadow: 0 12px 25px rgba(241, 196, 15, 0.9);
     }
 
-    .whatsapp-float:hover {
-      background: #1ebe57;
+    /* الرئيسية: الخلفية مع فيديو متحرك */
+    #home {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      color: white;
+      padding: 3rem 2rem;
+      min-height: 450px;
+      box-sizing: border-box;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      filter: brightness(0.5) blur(3px);
+      z-index: 0;
+      border-radius: 15px;
+      transition: filter 0.5s ease;
+    }
+    #home video.background-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.4;
+      border-radius: 15px;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    #home:hover::before {
+      filter: brightness(0.7) blur(1.5px);
+    }
+    #home:hover video.background-video {
+      opacity: 0.6;
+    }
+    #home h2 {
+      position: relative;
+      z-index: 10;
+      color: #f1c40f;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+      margin-bottom: 1rem;
+    }
+    #home .img-container {
+      position: relative;
+      z-index: 10;
+    }
+    #home .img-container img {
+      box-shadow: 0 6px 12px rgba(241, 196, 15, 0.7);
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    /* Responsive */
-    @media (max-width: 700px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-      .gallery img {
-        width: 45vw;
-      }
-    }
-
-    @media (max-width: 400px) {
-      #services ul {
-        max-width: 100%;
-      }
-      #contact form {
-        max-width: 100%;
-      }
-    }
   </style>
 </head>
 <body>
-
-  <a href="https://wa.me/212618107123" class="whatsapp-float" target="_blank" title="تواصل واتساب">💬</a>
-
-  <header>
-    <h1>مرحباً بك في موقعي</h1>
-    <p>موقع بسيط لعرض خدماتك بطريقة احترافية وجذابة</p>
-    <a href="#services" class="btn">استعرض الخدمات</a>
-  </header>
-
-  <section id="about">
-    <h2>من نحن</h2>
-    <p>نحن فريق متخصص في تصميم المواقع، نقدم حلولاً احترافية وسريعة تناسب مختلف المشاريع والأفراد.</p>
-  </section>
-
-  <section id="why">
-    <h2>لماذا نحن؟</h2>
-    <p>نحن لا نقدم مجرد تصميم، بل نصنع تجربة رقمية متكاملة. نهتم بالتفاصيل، نواكب أحدث التقنيات، ونسعى لرضاك الكامل.</p>
-  </section>
-
-  <section id="services">
-    <h2>الخدمات</h2>
-    <ul>
-      <li>تصميم مواقع احترافية</li>
-      <li>تحسين تجربة المستخدم (UX/UI)</li>
-      <li>تطوير واجهات أمامية (Frontend)</li>
-    </ul>
-  </section>
-
-  <section id="gallery">
-    <h2>معرض الأعمال</h2>
-    <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="تصميم موقع 2" title="صفحة موقع 2" />
-      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80" alt="تصميم موقع 3" title="صفحة موقع 3" />
-      <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=400&q=80" alt="تصميم موقع 4" title="صفحة موقع 4" />
+  <nav>
+    <div>موقعنا</div>
+    <div class="langs">
+      <span onclick="switchLang('ar')">عربي</span>
+      <span onclick="switchLang('es')">Español</span>
+      <span onclick="switchLang('de')">Deutsch</span>
+      <span onclick="switchLang('fr')">Français</span>
+      <span onclick="switchLang('en')">English</span>
+      <span onclick="switchLang('id')">Indonesia</span>
     </div>
-  </section>
+  </nav>
 
-  <section id="contact">
+  <div class="menu">
+    <div onclick="showSection('home')">الرئيسية</div>
+    <div onclick="showSection('about')">من نحن</div>
+    <div onclick="showSection('services')">خدماتنا</div>
+    <div onclick="showSection('projects')">أعمالنا</div>
+    <div onclick="showSection('order')">طلب خدمة</div>
+    <div onclick="showSection('contact')">تواصل معنا</div>
+  </div>
+
+  <div id="home" class="section active">
+    <!-- فيديو خلفية متحرك -->
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="https://cdn.videvo.net/videvo_files/video/free/2019-08/small_watermarked/190727_05_Aqua_4k_002_preview.webm" type="video/webm">
+      <source src="https://cdn.videvo.net/videvo_files/video/free/2019-08/small_watermarked/190727_05_Aqua_4k_002_preview.mp4" type="video/mp4">
+    </video>
+    <h2>الرئيسية</h2>
+    <div class="img-container">
+      <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80" alt="تطوير" />
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="جذب عملاء" />
+    </div>
+  </div>
+
+  <div id="about" class="section">
+    <h2>من نحن</h2>
+    <p>
+      نحن فريق شغوف ومبدع يكرّس جهوده لتطوير مواقع إلكترونية عالية الجودة تساعد الأفراد والشركات على تحسين وجودهم الرقمي.
+      نتميز بالابتكار، ونضع احتياجات العملاء في صلب كل مشروع نقوم به، من التصميم الأنيق إلى الأداء السريع والمتجاوب.
+      نسعى لنكون شركاء حقيقيين في نجاحك الرقمي، ونتابع أحدث التقنيات باستمرار لنضمن لك أفضل تجربة ممكنة.
+    </p>
+  </div>
+
+  <div id="services" class="section">
+    <h2>خدماتنا</h2>
+    <p>
+      نقدم خدمات تصميم وتطوير مواقع إلكترونية مخصصة وجذابة تلائم احتياجاتك تمامًا. نحرص على الجمع بين الجمال والوظيفة،
+      مع التركيز على تحسين تجربة المستخدم وسرعة التصفح. فريقنا يتعامل مع كل مشروع بشغف واحترافية لضمان نتائج مبهرة.
+    </p>
+    <div class="img-container">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="تصميم احترافي" />
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="برمجة" />
+      <img src="https://images.unsplash.com/photo-1551836022-4b57b9d86a0a?auto=format&fit=crop&w=600&q=80" alt="تطوير مواقع" />
+    </div>
+  </div>
+
+  <div id="projects" class="section">
+    <h2>أعمالنا</h2>
+    <p>
+      أنجزنا العديد من المشاريع الناجحة مثل مواقع تجارية، متاجر إلكترونية، وصفحات شخصية، جميعها بتصاميم مبتكرة ومتجاوبة مع كل الأجهزة.
+    </p>
+    <div class="img-container">
+      <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051" alt="مشروع 1" />
+      <img src="https://images.unsplash.com/photo-1591696205602-2f950c417cb9" alt="مشروع 2" />
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c" alt="مشروع 5" />
+      <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f" alt="مشروع 6" />
+      <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34" alt="مشروع 7" />
+      <img src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3" alt="مشروع 8" />
+    </div>
+  </div>
+
+  <div id="order" class="section">
+    <h2>طلب خدمة</h2>
+    <p>هل لديك فكرة مشروع؟ نحن هنا لنساعدك على تحويلها إلى موقع احترافي يلائم رؤيتك ويجذب عملاءك.</p>
+  </div>
+
+  <div id="contact" class="section contact">
     <h2>تواصل معنا</h2>
-    <form id="contactForm">
-      <input type="text" placeholder="الاسم الكامل" required />
-      <input type="email" placeholder="البريد الإلكتروني" required />
-      <textarea placeholder="اكتب رسالتك هنا" rows="5" required></textarea>
-      <button type="submit">إرسال</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>© 2025 جمال - جميع الحقوق محفوظة</p>
-  </footer>
+    <p>ضع هنا روابط التواصل الخاصة بك مثل واتساب، البريد الإلكتروني، إنستغرام أو أي وسيلة تفضلها.</p>
+  </div>
 
   <script>
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("تم إرسال رسالتك بنجاح!");
-      this.reset();
-    });
-  </script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach((s) => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
 
+    function switchLang(lang) {
+      const langs = {
+        ar: {
+          home: 'الرئيسية',
+          about: 'من نحن',
+          services: 'خدماتنا',
+          projects: 'أعمالنا',
+          order: 'طلب خدمة',
+          contact: 'تواصل معنا',
+        },
+        en: {
+          home: 'Home',
+          about: 'About',
+          services: 'Services',
+          projects: 'Projects',
+          order: 'Order Service',
+          contact: 'Contact Us',
+        },
+        fr: {
+          home: 'Accueil',
+          about: 'À propos',
+          services: 'Services',
+          projects: 'Réalisations',
+          order: 'Demander un service',
+          contact: 'Contact',
+        },
+        es: {
+          home: 'Inicio',
+          about: 'Sobre nosotros',
+          services: 'Servicios',
+          projects: 'Proyectos',
+          order: 'Solicitar servicio',
+          contact: 'Contacto',
+        },
+        de: {
+          home: 'Startseite',
+          about: 'Über uns',
+          services: 'Dienstleistungen',
+          projects: 'Projekte',
+          order: 'Dienst anfordern',
+          contact: 'Kontakt',
+        },
+        id: {
+          home: 'Beranda',
+          about: 'Tentang Kami',
+          services: 'Layanan',
+          projects: 'Proyek',
+          order: 'Pesan Layanan',
+          contact: 'Hubungi Kami',
+        },
+      };
+
+      const menu = document.querySelectorAll('.menu div');
+      const keys = ['home', 'about', 'services', 'projects', 'order', 'contact'];
+      keys.forEach((k, i) => {
+        menu[i].innerText = langs[lang][k];
+      });
+
+      document.body.lang = lang;
+    }
+  </script>
 </body>
 </html>
